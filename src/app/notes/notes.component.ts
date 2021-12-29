@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-interface Note {
-  _id: string
-  title: string
-  body: string
-}
+import { Note } from './note.model';
 
 @Component({
   selector: 'app-notes',
