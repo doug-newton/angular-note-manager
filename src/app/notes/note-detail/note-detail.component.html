@@ -1,2 +1,13 @@
-<h4>{{note.title}}</h4>
-<p>{{note.body}}</p>
+<h4>{{ note.title }}</h4>
+<ng-container *ngIf="note.tags">
+    <hr>
+    <button *ngFor="let tag of note.tags" class="btn btn-primary mx-1" type="button">{{ tag }}</button>
+    <hr>
+</ng-container>
+<ng-container *ngIf="note.book">
+    <div>
+        <i>book:</i> &NonBreakingSpace; <strong>{{ note.book }}</strong><br>
+    </div>
+    <hr>
+</ng-container>
+<p>{{ note.body }}</p>
