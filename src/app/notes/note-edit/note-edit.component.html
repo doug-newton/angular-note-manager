@@ -2,6 +2,10 @@
     <div class="row">
         <form [formGroup]="noteForm">
             <div class="mb-3">
+                <label for="id" class="form-label">ID</label>
+                <input readonly formControlName="_id" type="text" class="form-control" id="id">
+            </div>
+            <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input formControlName="title" type="text" class="form-control" id="title">
             </div>

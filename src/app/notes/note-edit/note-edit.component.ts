@@ -41,10 +41,11 @@ export class NoteEditComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.noteForm = new FormGroup({
+      _id: new FormControl(this.note._id),
       title: new FormControl(this.note.title),
       book: new FormControl(this.note.book),
       body: new FormControl(this.note.body),
-      tags: new FormArray(this.note.tags.map(
+      tags: new FormArray((this.note.tags ? this.note.tags : []).map(
         tag => new FormControl(tag)
       ))
     })
