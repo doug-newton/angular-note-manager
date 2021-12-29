@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, filter, from, Subscription } from 'rxjs';
+import { combineLatest, filter, Subscription } from 'rxjs';
 import { Note } from '../note.model';
 import { NotesService } from '../notes.service';
 
@@ -9,7 +9,7 @@ import { NotesService } from '../notes.service';
   templateUrl: './note-detail.component.html',
   styleUrls: ['./note-detail.component.scss']
 })
-export class NoteDetailComponent implements OnInit {
+export class NoteDetailComponent implements OnInit, OnDestroy {
 
   note: Note
   subscription: Subscription
@@ -30,6 +30,10 @@ export class NoteDetailComponent implements OnInit {
     ).subscribe(([params, notes]) =>
       this.note = this.notesService.getNote(params['id'])
     )
+  }
+
+  ngOnDestroy(): void {
+      this.subscription.unsubscribe()
   }
 
   onEdit() {
