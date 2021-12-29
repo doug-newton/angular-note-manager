@@ -19,9 +19,10 @@ export class NoteListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = this.notesService.notes$.subscribe(notes => {
+    this.subscription = this.notesService.notesSubject$.subscribe(notes => {
       this.notes = notes
     })
+    this.notesService.reloadNotes()
   }
 
   ngOnDestroy(): void {

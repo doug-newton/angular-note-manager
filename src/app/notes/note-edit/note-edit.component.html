@@ -1,6 +1,6 @@
 <div class="container-">
     <div class="row">
-        <form [formGroup]="noteForm">
+        <form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
                 <label for="id" class="form-label">ID</label>
                 <input readonly formControlName="_id" type="text" class="form-control" id="id">
@@ -24,6 +24,8 @@
                     class="form-control"
                     type="text">
             </div>
+
+            <button type="submit" class="btn btn-success">Save</button>
         </form>
     </div>
 </div>

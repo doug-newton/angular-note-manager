@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { filter, Subscription, switchMap } from 'rxjs';
 import { Note } from '../note.model';
 import { NotesService } from '../notes.service';
@@ -14,6 +14,7 @@ export class NoteEditComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private notesService: NotesService
   ) { }
 
@@ -55,12 +56,21 @@ export class NoteEditComponent implements OnInit, OnDestroy {
     })
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
+  }
+
   get tagControls() {
     return (<FormArray>this.noteForm.get('tags')).controls
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe()
+
+  onSubmit() {
+    if (this.noteForm.value._id === '') {
+      this.notesService.postNote(this.noteForm.value).subscribe(result => {
+        this.router.navigate(['../', result.insertedId], { relativeTo: this.route })
+      })
+    }
   }
 
 }

@@ -9,11 +9,7 @@ import { Note } from "./note.model";
 export class NotesService {
 
   notesSubject$: BehaviorSubject<Note[]> = new BehaviorSubject([])
-  notes$: Observable<Note[]> = this.apiService.getNotes().pipe(
-    tap(notes=> {
-      this.notesSubject$.next(notes)
-    })
-  )
+  notes$: Observable<Note[]> = this.apiService.getNotes()
 
   constructor(
     private apiService: ApiService
@@ -23,6 +19,23 @@ export class NotesService {
 
   getNote(id: string): Observable<Note> {
     return this.apiService.getNote(id)
+  }
+
+  reloadNotes() {
+    console.log('reloading notes')
+    this.notes$.subscribe(notes => {
+      console.log('notes reloaded. nexting notesSubject')
+      this.notesSubject$.next(notes)
+    })
+  }
+
+  postNote(note: Note) {
+    return this.apiService.postNote(note).pipe(
+      tap(()=>{
+        console.log('post note tap')
+        this.reloadNotes()
+      })
+    )
   }
 
 }

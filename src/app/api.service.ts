@@ -19,4 +19,8 @@ export class ApiService {
   getNote(id: string): Observable<Note> {
     return this.http.get<Note>(`http://localhost:8080/api/notes/${id}`)
   }
+
+  postNote(note: Note): Observable<any> {
+    return this.http.post<any>('http://localhost:8080/api/notes', note)
+  }
 }
