@@ -71,6 +71,11 @@ export class NoteEditComponent implements OnInit, OnDestroy {
         this.router.navigate(['../', result.insertedId], { relativeTo: this.route })
       })
     }
+    else {
+      this.notesService.putNote(this.noteForm.value).subscribe(result => {
+        this.router.navigate(['../'], { relativeTo: this.route })
+      })
+    }
   }
 
 }
