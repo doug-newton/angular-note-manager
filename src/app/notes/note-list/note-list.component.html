@@ -1,5 +1,7 @@
-<ul class="list-group">
-    <a *ngFor="let note of notes" [routerLink]="[note._id]">
-        <li routerLinkActive="active" class="list-group-item">{{ note.title }}</li>
-    </a>
-</ul>
+<div class="list-group">
+        <a 
+            *ngFor="let note of notes" 
+            [routerLink]="[note._id]" 
+            routerLinkActive="active" 
+            class="list-group-item list-group-item-action">{{ note.title }}</a>
+</div>
