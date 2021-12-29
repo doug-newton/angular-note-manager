@@ -4,7 +4,7 @@ const cors = require('cors')
 const path = require('path')
 
 const mongoUrl = "mongodb://localhost:27017"
-const dbName = "note-manager-test"
+const dbName = "mean-100"
 const port = 8080
 
 const app = express()
