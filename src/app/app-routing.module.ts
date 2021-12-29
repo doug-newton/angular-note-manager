@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: "full" },
   {
     path: 'notes', component: NotesComponent, children: [
+      { path: 'new', component: NoteEditComponent },
       { path: ':id', component: NoteDetailComponent },
       { path: ':id/edit', component: NoteEditComponent },
     ]
