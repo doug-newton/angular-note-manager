@@ -1,1 +1,13 @@
-<p>notes works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>All Notes</h3>
+            <ul class="list-group">
+                <li *ngFor="let note of notes" class="list-group-item">{{ note.title }}</li>
+            </ul>
+        </div>
+        <div class="col">
+            this is a detailed view of the note
+        </div>
+    </div>
+</div>
