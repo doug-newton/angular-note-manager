@@ -22,9 +22,7 @@ export class NotesService {
   }
 
   reloadNotes() {
-    console.log('reloading notes')
     this.notes$.subscribe(notes => {
-      console.log('notes reloaded. nexting notesSubject')
       this.notesSubject$.next(notes)
     })
   }
@@ -32,7 +30,14 @@ export class NotesService {
   postNote(note: Note) {
     return this.apiService.postNote(note).pipe(
       tap(()=>{
-        console.log('post note tap')
+        this.reloadNotes()
+      })
+    )
+  }
+
+  putNote(note: Note) {
+    return this.apiService.putNote(note).pipe(
+      tap(()=>{
         this.reloadNotes()
       })
     )

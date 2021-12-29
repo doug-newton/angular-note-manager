@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Note } from './notes/note.model';
 
 @Injectable({
@@ -22,5 +22,9 @@ export class ApiService {
 
   postNote(note: Note): Observable<any> {
     return this.http.post<any>('http://localhost:8080/api/notes', note)
+  }
+
+  putNote(note: Note): Observable<any> {
+    return this.http.put<any>('http://localhost:8080/api/notes', note)
   }
 }
