@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const express = require('express')
 const cors = require('cors')
 const path = require('path')
@@ -32,6 +32,18 @@ notesApi.get('/', (req, res)=>{
             res.json(result)
         }
     })
+})
+
+notesApi.get('/:id', (req, res) => {
+    const id = req.params.id
+    req.app.locals.db.collection('notes').findOne({ _id: new ObjectId(id) })
+        .then(result => {
+            res.json(result)
+        })
+        .catch(err => {
+            res.status(500)
+            res.json({ msg: err })
+        })
 })
 
 app.use('/api/notes', notesApi)
