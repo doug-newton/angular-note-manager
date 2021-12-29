@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, filter, from, Subscription } from 'rxjs';
 import { Note } from '../note.model';
 import { NotesService } from '../notes.service';
@@ -16,11 +16,11 @@ export class NoteDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private notesService: NotesService
   ) { }
 
   ngOnInit(): void {
-
     this.subscription = combineLatest([
       this.route.params, this.notesService.notesSubject$
     ]).pipe(
@@ -30,6 +30,10 @@ export class NoteDetailComponent implements OnInit {
     ).subscribe(([params, notes]) =>
       this.note = this.notesService.getNote(params['id'])
     )
+  }
+
+  onEdit() {
+    this.router.navigate(['edit'], {relativeTo: this.route})
   }
 
 }

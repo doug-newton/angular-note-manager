@@ -1,4 +1,4 @@
-<h4>{{ note.title }}</h4>
+<h4>{{ note.title }} <button (click)="onEdit()" class="btn btn-outline-warning mx-1">edit</button></h4>
 <ng-container *ngIf="note.tags">
     <hr>
     <button *ngFor="let tag of note.tags" class="btn btn-outline-primary mx-1" type="button">{{ tag }}</button>
