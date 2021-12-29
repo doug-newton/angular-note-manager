@@ -11,7 +11,7 @@ import { NotesService } from '../notes.service';
 })
 export class NoteDetailComponent implements OnInit {
 
-  note!: Note
+  note: Note
   subscription: Subscription
 
   constructor(
