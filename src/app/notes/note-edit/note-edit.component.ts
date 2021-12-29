@@ -64,6 +64,13 @@ export class NoteEditComponent implements OnInit, OnDestroy {
     return (<FormArray>this.noteForm.get('tags')).controls
   }
 
+  onDeleteTagControl(i: number) {
+    (<FormArray>this.noteForm.get('tags')).removeAt(i)
+  }
+
+  onAddTagControl() {
+    (<FormArray>this.noteForm.get('tags')).push(new FormControl(''))
+  }
 
   onSubmit() {
     if (this.noteForm.value._id === '') {

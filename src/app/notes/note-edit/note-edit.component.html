@@ -19,12 +19,19 @@
             </div>
             <div class="mb-3" formArrayName="tags">
                 <label for="tags" class="form-label">Tags</label>
-                <input *ngFor="let tagControl of tagControls; let i = index" 
-                    [formControlName]="i" 
-                    class="form-control"
-                    type="text">
+                <div class="row" *ngFor="let tagControl of tagControls; let i = index">
+                    <div class="col-10">
+                        <input
+                            [formControlName]="i" 
+                            class="form-control"
+                            type="text">
+                    </div>
+                    <div class="col">
+                        <button (click)="onDeleteTagControl(i)" type="button" class="btn btn-outline-danger">X</button>
+                    </div>
+                </div>
+                <button (click)="onAddTagControl()" type="button" class="btn btn-outline-success mx-1 mt-2">Add Tag</button>
             </div>
-
             <button type="submit" class="btn btn-success">Save</button>
         </form>
     </div>
