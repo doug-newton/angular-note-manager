@@ -10,4 +10,10 @@ export class NotesService {
     {_id: 'fasdfase', title: 'hello world again', body: 'this is another random note'},
   ]
 
+  getNote(id: string): Note | undefined {
+    return this.notes.find(note => {
+      return note._id === id
+    })
+  }
+
 }
