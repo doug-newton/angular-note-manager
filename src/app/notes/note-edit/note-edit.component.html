@@ -1,1 +1,25 @@
-<p>note-edit works!</p>
+<div class="container-">
+    <div class="row">
+        <form [formGroup]="noteForm">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input formControlName="title" type="text" class="form-control" id="title">
+            </div>
+            <div class="mb-3">
+                <label for="book" class="form-label">Book</label>
+                <input formControlName="book" type="text" class="form-control" id="book">
+            </div>
+            <div class="mb-3">
+                <label for="body" class="form-label">Body</label>
+                <textarea formControlName="body" id="body" cols="30" class="form-control"></textarea>
+            </div>
+            <div class="mb-3" formArrayName="tags">
+                <label for="tags" class="form-label">Tags</label>
+                <input *ngFor="let tagControl of tagControls; let i = index" 
+                    [formControlName]="i" 
+                    class="form-control"
+                    type="text">
+            </div>
+        </form>
+    </div>
+</div>

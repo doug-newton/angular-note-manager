@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { NoteListComponent } from './notes/note-list/note-list.component';
 import { NoteDetailComponent } from './notes/note-detail/note-detail.component';
 import { NoteEditComponent } from './notes/note-edit/note-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NoteEditComponent } from './notes/note-edit/note-edit.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

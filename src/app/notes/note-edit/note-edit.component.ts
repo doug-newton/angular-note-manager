@@ -1,15 +1,61 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription, switchMap } from 'rxjs';
+import { Note } from '../note.model';
+import { NotesService } from '../notes.service';
 
 @Component({
   selector: 'app-note-edit',
   templateUrl: './note-edit.component.html',
   styleUrls: ['./note-edit.component.scss']
 })
-export class NoteEditComponent implements OnInit {
+export class NoteEditComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private notesService: NotesService
+  ) { }
+
+  note: Note = {
+    _id: '',
+    title: '',
+    body: '',
+    book: '',
+    tags: []
+  }
+  subscription: Subscription
+  noteForm: FormGroup
 
   ngOnInit(): void {
+    this.initForm()
+    this.subscription = this.route.params
+    .pipe(switchMap(params=>{
+      return this.notesService.getNote(params['id'])
+    }))
+    .subscribe(note => {
+      this.note = note
+      this.initForm()
+    })
+  }
+
+  initForm() {
+    this.noteForm = new FormGroup({
+      title: new FormControl(this.note.title),
+      book: new FormControl(this.note.book),
+      body: new FormControl(this.note.body),
+      tags: new FormArray(this.note.tags.map(
+        tag => new FormControl(tag)
+      ))
+    })
+  }
+
+  get tagControls() {
+    return (<FormArray>this.noteForm.get('tags')).controls
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 
 }
