@@ -4,7 +4,7 @@ const cors = require('cors')
 const path = require('path')
 
 const mongoUrl = "mongodb://localhost:27017"
-const dbName = "mean-100"
+const dbName = "note-manager-test"
 const port = 8080
 
 const app = express()
@@ -31,6 +31,19 @@ notesApi.get('/', (req, res)=>{
         else {
             res.json(result)
         }
+    })
+})
+
+notesApi.post('/', (req, res) => {
+    const note = req.body
+    delete note._id
+    req.app.locals.db.collection('notes').insertOne(note).then(
+        result => {
+            res.json(result)
+        }
+    ).catch(err => {
+        res.status(500)
+        res.json({ msg: err })
     })
 })
 
