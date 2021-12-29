@@ -9,6 +9,7 @@ import { NotesComponent } from './notes/notes.component';
 import { HomeComponent } from './home/home.component';
 import { NoteListComponent } from './notes/note-list/note-list.component';
 import { NoteDetailComponent } from './notes/note-detail/note-detail.component';
+import { NoteEditComponent } from './notes/note-edit/note-edit.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NoteDetailComponent } from './notes/note-detail/note-detail.component';
     NotesComponent,
     HomeComponent,
     NoteListComponent,
-    NoteDetailComponent
+    NoteDetailComponent,
+    NoteEditComponent
   ],
   imports: [
     BrowserModule,
