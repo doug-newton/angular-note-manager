@@ -4,7 +4,7 @@ const cors = require('cors')
 const path = require('path')
 
 const mongoUrl = "mongodb://localhost:27017"
-const dbName = "my-db-name"
+const dbName = "mean-100"
 const port = 8080
 
 const app = express()
@@ -19,6 +19,22 @@ app.get('/api', (req, res) => {
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/public_html/index.html');
 });
+
+const notesApi = express.Router()
+
+notesApi.get('/', (req, res)=>{
+    req.app.locals.db.collection('notes').find({}).toArray((err, result) => {
+        if (err) {
+            res.status(500)
+            res.json({msg: err})
+        }
+        else {
+            res.json(result)
+        }
+    })
+})
+
+app.use('/api/notes', notesApi)
 
 app.use(express.static(path.join(__dirname, 'public_html')))
 
