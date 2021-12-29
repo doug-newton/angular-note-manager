@@ -47,6 +47,19 @@ notesApi.post('/', (req, res) => {
     })
 })
 
+notesApi.put('/', (req, res) => {
+    const note = req.body
+    const id = note._id
+    delete note._id
+    req.app.locals.db.collection('notes').updateOne({ _id: new ObjectId(id) }, { $set: note })
+        .then(result => {
+            res.json(result)
+        }).catch(err => {
+            res.status(500)
+            res.json({ msg: err })
+        })
+})
+
 notesApi.get('/:id', (req, res) => {
     const id = req.params.id
     req.app.locals.db.collection('notes').findOne({ _id: new ObjectId(id) })
