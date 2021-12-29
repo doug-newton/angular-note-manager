@@ -21,10 +21,8 @@ export class NotesService {
     this.notes$.subscribe()
   }
 
-  getNote(id: string): Note | undefined {
-    return this.notesSubject$.getValue().find(note => {
-      return note._id === id
-    })
+  getNote(id: string): Observable<Note> {
+    return this.apiService.getNote(id)
   }
 
 }

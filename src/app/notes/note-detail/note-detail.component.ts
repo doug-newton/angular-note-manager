@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, filter, Subscription } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { Note } from '../note.model';
 import { NotesService } from '../notes.service';
 
@@ -11,7 +11,13 @@ import { NotesService } from '../notes.service';
 })
 export class NoteDetailComponent implements OnInit, OnDestroy {
 
-  note: Note
+  note: Note = {
+    _id: '',
+    title: '',
+    body: '',
+    book: '',
+    tags: []
+  }
   subscription: Subscription
 
   constructor(
@@ -21,15 +27,15 @@ export class NoteDetailComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subscription = combineLatest([
-      this.route.params, this.notesService.notesSubject$
-    ]).pipe(
-      filter(val => {
-        return val[1].length > 0
+    this.subscription = this.route.params
+      .pipe(
+        switchMap(params => {
+          return this.notesService.getNote(params['id'])
+        })
+      )
+      .subscribe(note => {
+        this.note = note
       })
-    ).subscribe(([params, notes]) =>
-      this.note = this.notesService.getNote(params['id'])
-    )
   }
 
   ngOnDestroy(): void {
