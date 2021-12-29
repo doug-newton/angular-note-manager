@@ -1,7 +1,7 @@
 <h4>{{ note.title }}</h4>
 <ng-container *ngIf="note.tags">
     <hr>
-    <button *ngFor="let tag of note.tags" class="btn btn-primary mx-1" type="button">{{ tag }}</button>
+    <button *ngFor="let tag of note.tags" class="btn btn-outline-primary mx-1" type="button">{{ tag }}</button>
     <hr>
 </ng-container>
 <ng-container *ngIf="note.book">
