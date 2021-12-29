@@ -1,17 +1,28 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnDestroy, OnInit } from "@angular/core";
+import { BehaviorSubject, Observable, Subject, Subscription, tap } from "rxjs";
+import { ApiService } from "../api.service";
 import { Note } from "./note.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class NotesService {
-  notes: Note[] = [
-    {_id: 'fasdfasd', title: 'hello world', body: 'this is a random note'},
-    {_id: 'fasdfase', title: 'hello world again', body: 'this is another random note'},
-  ]
+
+  notesSubject$: BehaviorSubject<Note[]> = new BehaviorSubject([])
+  notes$: Observable<Note[]> = this.apiService.getNotes().pipe(
+    tap(notes=> {
+      this.notesSubject$.next(notes)
+    })
+  )
+
+  constructor(
+    private apiService: ApiService
+  ){
+    this.notes$.subscribe()
+  }
 
   getNote(id: string): Note | undefined {
-    return this.notes.find(note => {
+    return this.notesSubject$.getValue().find(note => {
       return note._id === id
     })
   }
