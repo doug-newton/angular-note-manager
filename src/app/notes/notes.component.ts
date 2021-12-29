@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Note } from './note.model';
+import { NotesService } from './notes.service';
 
 @Component({
   selector: 'app-notes',
@@ -8,14 +9,14 @@ import { Note } from './note.model';
 })
 export class NotesComponent implements OnInit {
 
-  notes: Note[] = [
-    {_id: 'fasdfasd', title: 'hello world', body: 'this is a random note'},
-    {_id: 'fasdfase', title: 'hello world again', body: 'this is another random note'},
-  ]
+  notes!: Note[]
 
-  constructor() { }
+  constructor(
+    private notesService: NotesService
+  ) { }
 
   ngOnInit(): void {
+    this.notes = this.notesService.notes
   }
 
 }
