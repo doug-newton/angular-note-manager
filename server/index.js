@@ -74,6 +74,56 @@ notesApi.get('/:id', (req, res) => {
 
 app.use('/api/notes', notesApi)
 
+const tagsApi = express.Router()
+
+tagsApi.get('/', (req, res) => {
+    req.app.locals.db.collection('notes').aggregate([
+        {
+            '$project': {
+                'tags': 1
+            }
+        }, {
+            '$unwind': {
+                'path': '$tags',
+                'preserveNullAndEmptyArrays': false
+            }
+        }, {
+            '$group': {
+                '_id': null,
+                'allTags': {
+                    '$addToSet': '$tags'
+                }
+            }
+        }, {
+            '$unwind': {
+                'path': '$allTags',
+                'preserveNullAndEmptyArrays': false
+            }
+        }, {
+            '$sort': {
+                'allTags': 1
+            }
+        }, {
+            '$group': {
+                '_id': null,
+                'tags': {
+                    '$push': '$allTags'
+                }
+            }
+        }
+    ]).toArray((err, result) => {
+        if (err) {
+            res.status(500)
+            res.send({ msg: err })
+        }
+        else {
+            res.send(result[0])
+        }
+    })
+})
+
+app.use('/api/tags', tagsApi)
+
 app.use(express.static(path.join(__dirname, 'public_html')))
 
 function gracefulShutdown() {
