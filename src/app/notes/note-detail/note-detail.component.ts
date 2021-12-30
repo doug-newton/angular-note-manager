@@ -46,4 +46,20 @@ export class NoteDetailComponent implements OnInit, OnDestroy {
     this.router.navigate(['edit'], {relativeTo: this.route})
   }
 
+  hasTags(): boolean {
+    if (this.note.tags === null || this.note.tags === undefined)
+      return false
+    if (this.note.tags.length == 0)
+      return false
+    return true
+  }
+
+  hasBook(): boolean {
+    if (this.note.book === null || this.note.book === undefined)
+      return false
+    if (this.note.book === '')
+      return false
+    return true
+  }
+
 }
