@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, Subscription, switchMap } from 'rxjs';
@@ -28,6 +28,8 @@ export class NoteEditComponent implements OnInit, OnDestroy {
   subscription: Subscription
   noteForm: FormGroup
 
+  @ViewChild('formTop') formTop: ElementRef<HTMLDivElement>
+
   ngOnInit(): void {
     this.initForm()
     this.subscription = this.route.params
@@ -41,6 +43,7 @@ export class NoteEditComponent implements OnInit, OnDestroy {
     .subscribe(note => {
       this.note = note
       this.initForm()
+      this.formTop.nativeElement.scrollIntoView(true)
     })
   }
 
