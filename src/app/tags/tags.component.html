@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
-        <div class="col" *ngIf="tags$ | async as tags">
-            <a class="btn btn-primary mx-1 my-1" *ngFor="let tag of tags.tags">{{tag}}</a>
+        <div class="col">
+            <app-tag-list></app-tag-list>
         </div>
     </div>
 </div>
