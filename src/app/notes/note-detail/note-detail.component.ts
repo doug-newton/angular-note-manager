@@ -30,6 +30,7 @@ export class NoteDetailComponent implements OnInit, OnDestroy {
     this.subscription = this.route.params
       .pipe(
         switchMap(params => {
+          window.scroll(0, 0)
           return this.notesService.getNote(params['id'])
         })
       )
