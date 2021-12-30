@@ -9,14 +9,6 @@
                 <label for="title" class="form-label">Title</label>
                 <input formControlName="title" type="text" class="form-control" id="title">
             </div>
-            <div class="mb-3">
-                <label for="book" class="form-label">Book</label>
-                <input formControlName="book" type="text" class="form-control" id="book">
-            </div>
-            <div class="mb-3">
-                <label for="body" class="form-label">Body</label>
-                <textarea formControlName="body" id="body" cols="30" class="form-control"></textarea>
-            </div>
             <div class="mb-3" formArrayName="tags">
                 <label for="tags" class="form-label">Tags</label>
                 <div class="row" *ngFor="let tagControl of tagControls; let i = index">
@@ -31,6 +23,14 @@
                     </div>
                 </div>
                 <button (click)="onAddTagControl()" type="button" class="btn btn-outline-success mx-1 mt-2">Add Tag</button>
+            </div>
+            <div class="mb-3">
+                <label for="book" class="form-label">Book</label>
+                <input formControlName="book" type="text" class="form-control" id="book">
+            </div>
+            <div class="mb-3">
+                <label for="body" class="form-label">Body</label>
+                <textarea formControlName="body" id="body" cols="30" class="form-control"></textarea>
             </div>
             <button type="submit" class="btn btn-success">Save</button>
         </form>
