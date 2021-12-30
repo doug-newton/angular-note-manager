@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { NoteDetailComponent } from './notes/note-detail/note-detail.component';
 import { NoteEditComponent } from './notes/note-edit/note-edit.component';
 import { NotesComponent } from './notes/notes.component';
+import { TagsComponent } from './tags/tags.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: "full" },
@@ -13,7 +14,8 @@ const routes: Routes = [
       { path: ':id', component: NoteDetailComponent },
       { path: ':id/edit', component: NoteEditComponent },
     ]
-  }
+  },
+  { path: 'tags', component: TagsComponent }
 ];
 
 @NgModule({

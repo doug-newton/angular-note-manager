@@ -11,6 +11,7 @@ import { NoteListComponent } from './notes/note-list/note-list.component';
 import { NoteDetailComponent } from './notes/note-detail/note-detail.component';
 import { NoteEditComponent } from './notes/note-edit/note-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TagsComponent } from './tags/tags.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     NoteListComponent,
     NoteDetailComponent,
-    NoteEditComponent
+    NoteEditComponent,
+    TagsComponent
   ],
   imports: [
     BrowserModule,
