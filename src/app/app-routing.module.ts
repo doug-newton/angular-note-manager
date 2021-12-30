@@ -15,7 +15,18 @@ const routes: Routes = [
       { path: ':id/edit', component: NoteEditComponent },
     ]
   },
-  { path: 'tags', component: TagsComponent }
+  {
+    path: 'tags', component: TagsComponent, children: [
+      { path: '', component: NotesComponent, pathMatch: "full" },
+      {
+        path: ':tag/notes', component: NotesComponent, children: [
+          { path: 'new', component: NoteEditComponent },
+          { path: ':id', component: NoteDetailComponent },
+          { path: ':id/edit', component: NoteEditComponent },
+        ]
+      },
+    ]
+  }
 ];
 
 @NgModule({

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { filter, map, Subscription } from 'rxjs';
 import { Note } from '../note.model';
 import { NotesService } from '../notes.service';
 
@@ -11,22 +12,36 @@ import { NotesService } from '../notes.service';
 export class NoteListComponent implements OnInit, OnDestroy {
 
   notes: Note[]
-  subscription: Subscription
+  notesChangedSubscription: Subscription
+  tagFilterSubscription: Subscription
 
   constructor(
+    private route: ActivatedRoute,
     private notesService: NotesService
   ) {
+    const tag = this.route.snapshot.params['tag']
+    console.log(tag)
   }
 
   ngOnInit(): void {
-    this.subscription = this.notesService.notesSubject$.subscribe(notes => {
+    this.notesChangedSubscription = this.notesService.notesSubject$.subscribe(notes => {
       this.notes = notes
     })
     this.notesService.reloadNotes()
+
+    this.tagFilterSubscription = this.route.params.pipe(
+      filter(params => {
+        return params['tag'] !== undefined
+      }),
+      map(params => {
+        return params['tag']
+      })).subscribe(tag => {
+        this.notesService.filterNotesByTag(tag)
+      })
   }
 
   ngOnDestroy(): void {
-      this.subscription.unsubscribe()
+      this.notesChangedSubscription.unsubscribe()
   }
 
 }

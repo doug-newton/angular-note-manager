@@ -17,6 +17,10 @@ export class ApiService {
     return this.http.get<Note[]>("http://localhost:8080/api/notes")
   }
 
+  getNotesWithTag(tag: string): Observable<Note[]> {
+    return this.http.get<Note[]>(`http://localhost:8080/api/tags/${tag}`)
+  }
+
   getNote(id: string): Observable<Note> {
     return this.http.get<Note>(`http://localhost:8080/api/notes/${id}`)
   }

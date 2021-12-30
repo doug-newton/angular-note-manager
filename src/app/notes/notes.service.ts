@@ -21,6 +21,16 @@ export class NotesService {
     return this.apiService.getNote(id)
   }
 
+  filterNotesByTag(tag: string) {
+    this.notes$.subscribe(notes => {
+      this.notesSubject$.next(notes.filter(note => {
+        if (note.tags === undefined) return false
+        if (note.tags === null) return false
+        return note.tags.indexOf(tag) !== -1
+      }))
+    })
+  }
+
   reloadNotes() {
     this.notes$.subscribe(notes => {
       this.notesSubject$.next(notes)
