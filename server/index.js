@@ -1,11 +1,22 @@
+require('dotenv').config()
 const { MongoClient, ObjectId } = require('mongodb');
 const express = require('express')
 const cors = require('cors')
 const path = require('path')
 
-const mongoUrl = "mongodb://localhost:27017"
-const dbName = "mean-100"
-const port = 8080
+if (process.env.MONGO_URL == undefined) {
+    throw new Error("MONGO_URL not defined")
+}
+if (process.env.DB_NAME == undefined) {
+    throw new Error("DB_NAME not defined")
+}
+if (process.env.PORT == undefined) {
+    throw new Error("PORT not defined")
+}
+
+const mongoUrl = process.env.MONGO_URL
+const dbName = process.env.DB_NAME
+const port = process.env.PORT
 
 const app = express()
 
